@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+{% endblock %}
+
+{% block title %}
+<h1>{% trans 'Library' %}</h1>
+{% endblock %}
+
+{% block content %}
+    
+
+    {% if logbook_list %}
+        <ul>
+        {% for logbook in logbook_list %}
+            <li><a href="logbook/{{ logbook.id }}/">{{ logbook.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No LogBooks are available.</p>
+    {% endif %}
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

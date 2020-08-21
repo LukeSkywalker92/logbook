@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load tz %}
+
+{% block css %}
+{% endblock %}
+
+{% block title %}
+
+<h1>{{ logbook.name }}</h1>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class='entries'>
+    <ul>
+        {% for logbookentry in logbook.logbookentry_set.all %}
+            <li>
+                <p></p><b>{{ logbookentry.author.username }} on {{ logbookentry.pub_date|localtime|date }} {{ logbookentry.pub_date|localtime|date:"G:i:s" }}:</b></p>
+                {{ logbookentry.text|linebreaks }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class='form'>
+    <form action="new_entry" method="post">
+        {% csrf_token %}
+        {{ form }}
+    <input type="submit" value="Submit">
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

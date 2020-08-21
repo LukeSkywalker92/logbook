@@ -1,0 +1,34 @@
+{% load static %}
+{% load i18n %}
+
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>LogBook</title>
+  <meta name="description" content="LogBook">
+  <meta name="author" content="Lukas Scheffler">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="{% static "css/base.css" %}" />
+  {% block css %}
+  {% endblock %}
+
+</head>
+
+<body>
+    <div class='title'>
+        {% block title %}
+        {% endblock %}
+    </div>
+    
+    <div class='content'>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+    {% block js %}
+    {% endblock %}
+</html>
