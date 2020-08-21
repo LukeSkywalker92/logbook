@@ -14,10 +14,7 @@ def library(request):
     return render(request, 'library/library.html', context)
 
 def logbook(request, logbook_id):
-    try:
-        book = LogBook.objects.get(pk=logbook_id)
-    except LogBook.DoesNotExist:
-        raise Http404("Logbook does not exist")
+    book = get_object_or_404(LogBook, pk=logbook_id)
     form = EntryForm()
     return render(request, 'library/logbook.html', {'logbook': book, 'form':form})
 
