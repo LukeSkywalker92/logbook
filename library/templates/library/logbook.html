@@ -16,14 +16,14 @@
 {% block content %}
 
 <div class='entries'>
-    <ul>
-        {% for logbookentry in logbook.logbookentry_set.all %}
-            <li>
+    <div class='entry-list'>
+        {% for logbookentry in logbook.logbookentry_set.all reversed %}
+            <div>
                 <p></p><b>{{ logbookentry.author.username }} on {{ logbookentry.pub_date|localtime|date }} {{ logbookentry.pub_date|localtime|date:"G:i:s" }}:</b></p>
-                {{ logbookentry.text|linebreaks }}
-            </li>
+                {{ logbookentry.formatted_markdown|safe }}
+            </div>
         {% endfor %}
-    </ul>
+        </div>
 </div>
 <div class='form'>
     <form action="new_entry" method="post">
@@ -31,6 +31,7 @@
         {{ form }}
     <input type="submit" value="Submit">
     </form>
+    {{ form.media }}
 </div>
 
 

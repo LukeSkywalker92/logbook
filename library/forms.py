@@ -1,4 +1,5 @@
 from django import forms
+from markdownx.fields import MarkdownxFormField
 
 class EntryForm(forms.Form):
-    entry_text = forms.CharField(widget=forms.Textarea(attrs={'width':'100%'}))
+    entry_text = MarkdownxFormField()
