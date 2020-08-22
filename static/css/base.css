@@ -3,62 +3,71 @@ html {
     font-family: monospace;
 }
 
-body {
-    font-family: monospace;
-    height: 100%;
-    margin: 0;
+.wrapper {
+    height: 100vh;
+    display: flex;
+
+    /* Direction of the items, can be row or column */
+    flex-direction: column;
 }
 
-.entrylist {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+header,
+footer {
+    height: 30px;
 }
 
-
-
-label {
-    display: block;
-}
-
-textarea {
-    display: block;
+header {
+    position: fixed;
+    left: 0;
+    top: 0;
     width: 100%;
-    height: 100%;
-}
-
-input {
-    display: block;
-}
-
-h1 {
-    margin: 0;
-    font-family: monospace;
-}
-
-.title {
-    height: 5%;
+    background-color: white;
+    color: black;
     text-align: center;
 }
 
-.content {
-    padding: 20px;
-    height: 65%;
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+  }
+
+main {
+    flex: 1;
+    padding-top: 35px;
+    padding-bottom: 35px;
 }
 
-.entries {
-    overflow-y: scroll;
-    height: 100%;
+.title {
+    line-height: 30px;
+    font-size: 20px;
 }
 
-.form {
-    height: 20%;
+.footer {
+    line-height: 30px;
+    margin: 0;
+}
+
+.logbook-elmt {
+    font-size: large;
+    margin: 10px;
+}
+
+img {
+    max-width: 100%;
+}
+
+textarea {
+    width: 90%;
 }
 
 form {
-    height: 100%;
+    text-align: center;
 }
-
 
 @media (refers-color-scheme: dark) { 
     body {

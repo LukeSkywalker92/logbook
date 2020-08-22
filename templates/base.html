@@ -19,14 +19,24 @@
 </head>
 
 <body>
-    <div class='title'>
-        {% block title %}
-        {% endblock %}
-    </div>
-    
-    <div class='content'>
-        {% block content %}
-        {% endblock %}
+    <div class="wrapper">
+        <header>
+            {% block title %}
+            {% endblock %}
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            {% block footer %}
+            {% endblock %}
+            {% if user.is_authenticated %}
+            <p class="footer">Logged in as {{ user.username }}. <a href="/accounts/logout">Logout.</a></p>
+            {% else %}
+            <p class="footer">Not logged in. <a href="/accounts/login">Login.</a></p>
+            {% endif %}
+        </footer>
     </div>
 </body>
     {% block js %}

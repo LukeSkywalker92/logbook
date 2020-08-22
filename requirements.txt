@@ -1,7 +1,6 @@
 asgiref==3.2.10
 astroid==2.4.2
 Django==3.1
-django-markdown==0.8.4
 django-markdownx==3.0.1
 importlib-metadata==1.7.0
 isort==5.4.2

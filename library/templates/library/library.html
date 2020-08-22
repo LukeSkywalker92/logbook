@@ -6,21 +6,31 @@
 {% endblock %}
 
 {% block title %}
-<h1>{% trans 'Library' %}</h1>
+<div class="title">{% trans 'Library' %}</div>
 {% endblock %}
 
 {% block content %}
-    
+    {% if user.is_authenticated %}
+    <form action="new_logbook" method="post">
+        <h2>New LogBook</h2>
+        {% csrf_token %}
+        {{ form }}
+    <input type="submit" value="Add LogBook">
+    </form>
+    {% endif %}
 
     {% if logbook_list %}
-        <ul>
+    <div>
+        <h2>LogBooks</h2>
         {% for logbook in logbook_list %}
-            <li><a href="logbook/{{ logbook.id }}/">{{ logbook.name }}</a></li>
+            <div class="logbook-elmt"><a href="logbook/{{ logbook.id }}/">{{ logbook.name }}</a></div>
         {% endfor %}
-        </ul>
+    </div>
     {% else %}
         <p>No LogBooks are available.</p>
     {% endif %}
+
+    
 
 {% endblock %}
 
