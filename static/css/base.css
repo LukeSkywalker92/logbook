@@ -57,6 +57,11 @@ main {
     margin: 10px;
 }
 
+.home-elmt {
+    font-size: large;
+    margin: 10px;
+}
+
 img {
     max-width: 100%;
 }

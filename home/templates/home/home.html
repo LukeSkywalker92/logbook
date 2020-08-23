@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+{% endblock %}
+
+{% block title %}
+<div class="title">{% trans 'Home' %}</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="home-elmt">
+    <a href="/library">Library</a>
+</div>
+<div class="home-elmt">
+    <a href="/admin">Admin Area</a>
+</div>
+
+
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

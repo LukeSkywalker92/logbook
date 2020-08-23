@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+{% endblock %}
+
+{% block title %}
+<div class="title">{{ logbook.name }} - Owners</div>
+{% endblock %}
+
+
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <form action="add_owner" method="post">
+            <h2>Add Owner</h2>
+            {% csrf_token %}
+            {{ form }}
+        <input type="submit" value="Add Owner">
+        </form>
+    {% endif %}
+
+    {% if owners %}
+    <div>
+        <h2>Owners</h2>
+        {% for owner in owners %}
+            <div class="logbook-elmt">{{ owner }} (<a href="owners/remove/{{ owner }}">remove</a>)</div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No owners.</p>
+    {% endif %}
+
+    
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
