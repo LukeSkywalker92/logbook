@@ -8,9 +8,11 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/manage.py",
+            "program": "manage.py",
+            "cwd": "${workspaceFolder}/app",
             "args": [
                 "runserver",
+                "--settings=logbook.settings_dev"
                 //"--noreload"
             ],
             "django": true
