@@ -55,6 +55,8 @@ def new_logbook(request):
     if form.is_valid():
         logbook = LogBook(name=form.cleaned_data['name'])
         logbook.save()
+        logbook.owners.add(request.user)
+        logbook.save()
         return HttpResponseRedirect('/library/logbook/'+str(logbook.id))
 
 @login_required
