@@ -12,24 +12,39 @@
   <meta name="author" content="Lukas Scheffler">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <link rel="stylesheet" href="{% static "css/base.css" %}" />
+  <!-- <link rel="stylesheet" href="{% static "css/base.css" %}" /> -->
   <link rel="stylesheet" href="{% static "css/terminal.css" %}" />
   {% block css %}
   {% endblock %}
 
 </head>
 
-<body>
-    <div class="container">
-        <header>
-            {% block title %}
-            {% endblock %}
-        </header>
-        <main>
+<body class="terminal">
+    
+    <div class="container" style="position: -webkit-sticky; position: sticky; top:0; background-color: white; z-index: 99999;">
+        <div class="terminal-nav">
+            <header class="terminal-logo">
+            <div class="logo terminal-prompt">
+                {% block logo %}
+                {% endblock %}
+            </div>
+            </header>
+            <nav class="terminal-menu">
+            <ul vocab="https://schema.org/" typeof="BreadcrumbList">
+                <li id="nav-link"><meta property="position"></li>
+                <li style="height: 28px;"><span></span></li>
+            </ul>
+            </nav>
+        </div>
+        <!-- {% block title %}
+        {% endblock %} -->
+    </div>
+        
+        <div class="container">
             {% block content %}
             {% endblock %}
-        </main>
-        <footer>
+        </fiv>
+        <div class="container" style="position: -webkit-sticky; position: sticky; bottom:0; z-index: 99999; background-color: white; text-align: center;">
             {% block footer %}
             {% endblock %}
             {% if user.is_authenticated %}
@@ -37,9 +52,10 @@
             {% else %}
             <p class="footer">Not logged in. <a href="/accounts/login">Login.</a></p>
             {% endif %}
-        </footer>
+        </div>
     </div>
 </body>
+<script src="{% static "js/base.js" %}"></script>
     {% block js %}
     {% endblock %}
 </html>

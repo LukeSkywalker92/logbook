@@ -6,16 +6,17 @@
 {% block css %}
 {% endblock %}
 
-{% block title %}
-
-<div class="title">{{ logbook.name }} (<a href="owners">Owners</a>)</div>
-
+{% block logo %}
+<a href="owners" class="no-style">{{ logbook.name }}</a>
 {% endblock %}
 
 
 {% block content %}
 
+<!-- <div class="title">{{ logbook.name }} (<a href="owners">Owners</a>)</div> -->
+
 {% if user.is_authenticated %}
+<div class='container'></div>
 <div class='form'>
     <h2>New Entry</h2>
     <form action="new_entry" method="post">
@@ -25,16 +26,24 @@
     </form>
     {{ form.media }}
 </div>
+</div>
 {% endif %}
 
-<div class='entries'>
+<div class='container'>
+    <header>
     <h2>Entries</h2>
-    <div class='entry-list'>
+    </header>
+    <div class='terminal-timeline'>
+    
         {% for logbookentry in logbook.logbookentry_set.all reversed %}
+        <div class="terminal-card">
+            <header>
+                {{ logbookentry.author.username }} on {{ logbookentry.pub_date|localtime|date }} {{ logbookentry.pub_date|localtime|date:"G:i:s" }}
+            </header>
             <div>
-                <p></p><b>{{ logbookentry.author.username }} on {{ logbookentry.pub_date|localtime|date }} {{ logbookentry.pub_date|localtime|date:"G:i:s" }}:</b></p>
                 {{ logbookentry.formatted_markdown|safe }}
             </div>
+        </div>
         {% endfor %}
         </div>
 </div>
