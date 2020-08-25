@@ -16,19 +16,32 @@
 {% block content %}
     {% if user.is_authenticated %}
     <form action="new_logbook" method="post">
-        <h2>New LogBook</h2>
+        <fieldset>
+        <legend>New LogBook</legend>
         {% csrf_token %}
+        <div class="form-group">
         {{ form }}
-    <input type="submit" value="Add LogBook">
+        </div>
+        <div class="form-group">
+    <button class="btn btn-default btn-ghost" type="submit" value="Add LogBook">Add LogBook</button>
+</div>
+</fieldset>
     </form>
     {% endif %}
 
+    <hr>
+
     {% if logbook_list %}
     <div>
-        <h2>LogBooks</h2>
-        {% for logbook in logbook_list %}
-            <div class="logbook-elmt"><a href="logbook/{{ logbook.id }}/">{{ logbook.name }}</a></div>
+        <fieldset>
+            <legend>LogBooks</legend>
+            {% for logbook in logbook_list %}
+            <div class="form-group">
+            <div class="btn btn-primary btn-ghost"><a href="{{ logbook.id }}">{{ logbook.name }}</a></div>
+        </div>
         {% endfor %}
+        </fieldset>
+        
     </div>
     {% else %}
         <p>No LogBooks are available.</p>

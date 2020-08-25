@@ -12,8 +12,9 @@
   <meta name="author" content="Lukas Scheffler">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <!-- <link rel="stylesheet" href="{% static "css/base.css" %}" /> -->
   <link rel="stylesheet" href="{% static "css/terminal.css" %}" />
+  <!-- <link rel="stylesheet" href="{% static "css/dark.css" %}" /> -->
+  <link rel="stylesheet" href="{% static "css/base.css" %}" />
   {% block css %}
   {% endblock %}
 
@@ -21,7 +22,7 @@
 
 <body class="terminal">
     
-    <div class="container" style="position: -webkit-sticky; position: sticky; top:0; background-color: white; z-index: 99999;">
+    <div class="container top-bar">
         <div class="terminal-nav">
             <header class="terminal-logo">
             <div class="logo terminal-prompt">
@@ -39,12 +40,17 @@
         <!-- {% block title %}
         {% endblock %} -->
     </div>
+
+    
         
         <div class="container">
+            <hr>
             {% block content %}
             {% endblock %}
-        </fiv>
-        <div class="container" style="position: -webkit-sticky; position: sticky; bottom:0; z-index: 99999; background-color: white; text-align: center;">
+            
+        </div>
+        <div class="container bottom-bar">
+            <hr>
             {% block footer %}
             {% endblock %}
             {% if user.is_authenticated %}

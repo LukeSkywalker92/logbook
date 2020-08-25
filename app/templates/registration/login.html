@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block logo %}
+<a class="no-style">{% trans 'Login' %}</a>
+{% endblock %}
 
 {% block content %}
 
@@ -16,7 +22,10 @@
 {% endif %}
 
 <form style="text-align: unset;" method="post" action="{% url 'login' %}">
-{% csrf_token %}
+    <fieldset>
+        <legend>Login</legend>
+    {% csrf_token %}
+    <div class="form-group">
 <table>
 <tr>
     <td>{{ form.username.label_tag }}</td>
@@ -27,8 +36,10 @@
     <td>{{ form.password }}</td>
 </tr>
 </table>
+</div>
 
-<input type="submit" value="login">
+<!-- <input type="submit" value="login"> -->
+<button class="btn btn-default" type="submit" value="login">Login</button>
 <input type="hidden" name="next" value="{{ next }}">
 </form>
 

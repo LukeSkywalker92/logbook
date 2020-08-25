@@ -16,22 +16,30 @@
 <!-- <div class="title">{{ logbook.name }} (<a href="owners">Owners</a>)</div> -->
 
 {% if user.is_authenticated %}
-<div class='container'></div>
-<div class='form'>
-    <h2>New Entry</h2>
+<div class='container'>
     <form action="new_entry" method="post">
+        <fieldset>
+            <legend>New Entry</legend>
         {% csrf_token %}
-        {{ form }}
-    <input type="submit" value="Submit">
+        <!-- <div class="form-group"> -->
+            <div class="form-group">
+            {{ form }}
+        </div>
+        <!-- </div> -->
+        <div class="form-group">
+    <button class="btn btn-default btn-ghost" type="submit" value="Submit">Add Entry</button>
+</div>
+</fieldset>
     </form>
     {{ form.media }}
 </div>
-</div>
 {% endif %}
 
+
 <div class='container'>
-    <header>
-    <h2>Entries</h2>
+    <hr>
+    <fieldset>
+    <legend>Entries</legend>
     </header>
     <div class='terminal-timeline'>
     
@@ -46,6 +54,7 @@
         </div>
         {% endfor %}
         </div>
+    </fieldset>
 </div>
 
 
