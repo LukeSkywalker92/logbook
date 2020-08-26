@@ -1,69 +1,102 @@
 {% extends "base.html" %}
 
+{% load static %}
+{% load i18n %}
+
+{% block logo %}
+<a class="no-style">{% trans 'Profile' %}</a>
+{% endblock %}
+
 {% block content %}
 
-  <h1 class="text-center">Profile</h1>
+
 
   {% for error in form.non_field_errors %}
       <div class='alert alert-danger'>{{ error }}</div>
   {% endfor %}
 
   <form id='profileForm' class="text-center" method="post" action="{% url 'accounts:profile' %}">
+    <fieldset>
+      <legend>Profile</legend>
 
     {% csrf_token %}
 
-    <p>
+    <div class="form-group">
       <label for='id_username'>Username:</label>
       {{ form.username }}
       {% for error in form.username.errors %}
           <div class='alert alert-danger'>{{ error }}</div>
       {% endfor %}
-    </p>
+    </div>
 
-    <p>
+    <div class="form-group">
       <label for='id_first_name'>First Name:</label>
       {{ form.first_name }}
       {% for error in form.first_name.errors %}
           <div class='alert alert-danger'>{{ error }}</div>
       {% endfor %}
-    </p>
+    </div>
 
-    <p>
+    <div class="form-group">
       <label for='id_last_name'>Last Name:</label>
       {{ form.last_name }}
       {% for error in form.last_name.errors %}
           <div class='alert alert-danger'>{{ error }}</div>
       {% endfor %}
-    </p>
+    </div>
 
-    <p>
+    <div class="form-group">
       <label for='id_email'>Email:</label>
       {{ form.email }}
       {% for error in form.email.errors %}
           <div class='alert alert-danger'>{{ error }}</div>
       {% endfor %}
-    </p>
+    </div>
 
-    <p>
+    <div class="form-group">
       <label for='id_password'>Password:</label>
       {{ form.password }}
       {% for error in form.password.errors %}
           <div class='alert alert-danger'>{{ error }}</div>
       {% endfor %}
-    </p>
+    </div>
 
-    <p>
+    <div class="form-group">
       <label for='id_confirm_password'>Confirm Password:</label>
       {{ form.confirm_password }}
       {% for error in form.confirm_password.errors %}
           <div class='alert alert-danger'>{{ error }}</div>
       {% endfor %}
-    </p>
+    </div>
 
-    <p>
-      <label/><input type="submit" value="Update Profile">
-    </p>
-
+    <div class="form-group">
+      <label/><input class="btn btn-lg btn-primary btn-block btn-ghost" type="submit" value="Update Profile">
+    </div>
+  </fieldset>
   </form>
+
+  <br>
+
+  <form id='settingsForm' class="text-center" method="post" action="{% url 'accounts:settings' %}">
+    <fieldset>
+      <legend>Settings</legend>
+
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for='id_darkmode'>Darkmode:</label>
+      {{ settings_form.darkmode }}
+      {% for error in settings_form.darkmode.errors %}
+          <div class='alert alert-danger'>{{ error }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      <label/><input class="btn btn-lg btn-primary btn-block btn-ghost" type="submit" value="Update Settings">
+    </div>
+  </fieldset>
+  </form>
+
+
 
 {% endblock content %}

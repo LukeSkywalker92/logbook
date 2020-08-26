@@ -6,6 +6,17 @@ from markdownx.utils import markdownify
 
 # Create your models here.
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    phone = models.CharField(
+        max_length=12,
+        blank=True,
+    )
+    darkmode = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.user.username
+
 class LogBook(models.Model):
     name = models.CharField(max_length=200)
     owners = models.ManyToManyField(User)

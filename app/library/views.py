@@ -33,7 +33,6 @@ def owners(request, logbook_id):
     book = get_object_or_404(LogBook, pk=logbook_id, owners__in=[request.user])
     owners = book.owners.all()
     not_owners = User.objects.all().difference(owners)
-    print(not_owners)
     form = AddOwnerForm()
     context = {
         'logbook': book,

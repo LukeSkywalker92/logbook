@@ -13,7 +13,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
   <link rel="stylesheet" href="{% static "css/terminal.css" %}" />
-  <!-- <link rel="stylesheet" href="{% static "css/dark.css" %}" /> -->
+  {% if user.profile.darkmode %}
+  <link rel="stylesheet" href="{% static "css/dark.css" %}" />
+  {% endif %}
   <link rel="stylesheet" href="{% static "css/base.css" %}" />
   {% block css %}
   {% endblock %}
@@ -54,7 +56,7 @@
             {% block footer %}
             {% endblock %}
             {% if user.is_authenticated %}
-            <p class="footer">Logged in as {{ user.username }}. <a href="/accounts/logout">Logout.</a></p>
+            <p class="footer">Logged in as <a href="/accounts/profile">{{ user.username }}</a>. <a href="/accounts/logout">Logout.</a></p>
             {% else %}
             <p class="footer">Not logged in. <a href="/accounts/login">Login.</a></p>
             {% endif %}

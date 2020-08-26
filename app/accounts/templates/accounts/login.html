@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block logo %}
+<a class="no-style">{% trans 'Login' %}</a>
+{% endblock %}
+
+{% block content %}
+
+<form id='loginForm' method="post" class="form-signin" action="{% url 'accounts:login' %}">
+<fieldset>
+<legend>Login</legend>
+
+  {% csrf_token %}
+
+  {% for error in form.non_field_errors %}
+    <div class='alert alert-danger form-error'>{{ error }}</div>
+  {% endfor %}
+
+  <div class="form-group">
+  <label for='{{ form.username_email.id_for_label }}'class="sr-only">Username:</label>
+  {{ form.username_email }}
+  {% if form.username_email.errors %}
+    <div class='alert alert-danger form-error'>
+      <ul>
+        {% for error in form.username_email.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- <script>
+      document.getElementById('{{ form.username_email.id_for_label }}').focus()
+    </script> -->
+  {% endif %}
+</div>
+
+<div class="form-group">
+  <label for='{{ form.password.id_for_label }}' class="sr-only">Password:</label>
+  {{ form.password }}
+  {% if form.password.errors %}
+    <div class='alert alert-danger form-error'>
+      <ul>
+        {% for error in form.password.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- <script>
+      document.getElementById('{{ form.password.id_for_label }}').focus()
+    </script> -->
+  {% endif %}
+</div>
+
+  {{ form.next }}
+  <div class="form-group">
+  <button class="btn btn-lg btn-primary btn-block btn-ghost" type="submit">Sign in</button>
+  </div>
+
+  <div class="form-group">
+    <a class="btn btn-lg btn-block btn-ghost" href="{% url 'accounts:register' %}">Register</a>
+  </div>
+</fieldset>
+</form>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+function setNextURLValue() {
+  document.getElementById('{{ form.next.id_for_label}}').value = "{{ next }}";
+}
+setNextURLValue();
+</script>
+{% endblock js %}

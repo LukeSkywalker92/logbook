@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'database.apps.DatabaseConfig',
     'library.apps.LibraryConfig',
     'home.apps.HomeConfig',
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,3 +144,7 @@ LOGOUT_REDIRECT_URL='/'
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra'
 ]
+
+DJANGO_SIMPLE_ACCOUNTS = {
+    'USER_PROFILE_PYTHON_PATH': 'database.models.UserProfile',
+}
