@@ -12,6 +12,8 @@ from django.utils.translation import ugettext as _
 from .forms import ProfileForm, RegisterForm, LoginForm, SettingsForm
 from .models import UserProfile
 
+import os
+
 
 
 context_base = {}
@@ -69,33 +71,35 @@ def custom_login(request):
 def register(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('accounts:profile'))
-    if request.method == 'POST':
+    if os.environ.get("REGISTRATION")==None or bool(os.environ.get("REGISTRATION"))==True:
+        if request.method == 'POST':
 
-        # create a form instance and populate it with data from the request
-        form = RegisterForm(request.POST)
+            # create a form instance and populate it with data from the request
+            form = RegisterForm(request.POST)
 
-        if form.is_valid():
+            if form.is_valid():
 
-            # create a new user
-            new_user = User.objects.create_user(username=form.cleaned_data['username'])
-            new_user.set_password(form.cleaned_data['password'])
-            new_user.save()
+                # create a new user
+                new_user = User.objects.create_user(username=form.cleaned_data['username'])
+                new_user.set_password(form.cleaned_data['password'])
+                new_user.save()
 
-            # login after creation
-            new_user = authenticate(
-                username = form.cleaned_data['username'],
-                password = form.cleaned_data['password'],
-            )
-            login(request, new_user)
+                # login after creation
+                new_user = authenticate(
+                    username = form.cleaned_data['username'],
+                    password = form.cleaned_data['password'],
+                )
+                login(request, new_user)
 
-            # redirect
-            return HttpResponseRedirect(reverse('accounts:profile'))
+                # redirect
+                return HttpResponseRedirect(reverse('accounts:profile'))
 
-    else:
-        form = RegisterForm()
+        else:
+            form = RegisterForm()
 
-    return render(request, 'accounts/register.html', {'form': form})
-
+        return render(request, 'accounts/register.html', {'form': form})
+    else: 
+        return HttpResponseRedirect('/')
 
 
 @login_required
