@@ -13,8 +13,8 @@
     text-align: center;
 }
 
-textarea {
+/* textarea {
     width: 100%;
     border:1px var(--input-style) var(--font-color);
     resize: none;
-}
+} */

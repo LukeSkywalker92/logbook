@@ -12,6 +12,7 @@
             "cwd": "${workspaceFolder}/app",
             "args": [
                 "runserver",
+                "0.0.0.0:8000",
                 "--settings=logbook.settings_dev"
                 //"--noreload"
             ],

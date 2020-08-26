@@ -28,7 +28,7 @@ SECRET_KEY = "foo"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.178.10', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.178.10', '127.0.0.1', '132.187.36.87']
 
 
 # Application definition
@@ -139,3 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='/'
+
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra'
+]

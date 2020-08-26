@@ -18,21 +18,13 @@
 {% if user.is_authenticated %}
 <div class='container'>
     <form action="new_entry" method="post">
-        <fieldset>
-            <legend>New Entry</legend>
         {% csrf_token %}
-        <!-- <div class="form-group"> -->
-            <div class="form-group">
-            {{ form }}
-        </div>
-        <!-- </div> -->
-        <div class="form-group">
-    <button class="btn btn-default btn-ghost" type="submit" value="Submit">Add Entry</button>
+    {{ form }}
+</form>
 </div>
-</fieldset>
-    </form>
-    {{ form.media }}
-</div>
+
+
+
 {% endif %}
 
 
@@ -62,4 +54,5 @@
 {% endblock %}
 
 {% block js %}
+{{ form.media }}
 {% endblock %}

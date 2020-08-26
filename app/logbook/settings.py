@@ -149,3 +149,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='/'
+
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra'
+]
