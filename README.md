@@ -40,14 +40,17 @@ Build:
 Running:
 * `docker-compose docker-compose.dev.yml up` (add -d to detach the process from terminal)
 * Access app at `127.0.0.1:8000` with your browser
+* Standard admin credentials: `admin:admin`
 
 ## Deployment
 
 Build:
 * set environment variables in `.env`
+* set strong `SECRET_KEY` in `.env`! (https://djecrety.ir/)
 * `docker-compose build`
 
 Running:
 * `docker-compose up -d`
 * Access app at `127.0.0.1:1337` with your browser or configure proxy to this port
+* Standard admin credentials: `admin:admin`
 
