@@ -56,9 +56,9 @@
             {% block footer %}
             {% endblock %}
             {% if user.is_authenticated %}
-            <p class="footer">Logged in as <a href="/accounts/profile">{{ user.username }}</a>. <a href="/accounts/logout">Logout.</a></p>
+            <p class="footer">Logged in as <a href="{% url 'accounts:profile' %}">{{ user.username }}</a>. <a href="/accounts/logout">Logout.</a></p>
             {% else %}
-            <p class="footer">Not logged in. <a href="/accounts/login">Login.</a></p>
+            <p class="footer">Not logged in. <a href="{% url 'accounts:login' %}">Login.</a></p>
             {% endif %}
         </div>
     </div>

@@ -15,7 +15,7 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <form action="new_logbook" method="post">
+    <form action="{% url 'library:new_logbook' %}" method="post">
         <fieldset>
         <legend>New LogBook</legend>
         {% csrf_token %}
@@ -38,7 +38,7 @@
             <div class='terminal-timeline'>
             {% for logbook in logbook_list %}
             <div class="form-group">
-            <div class="btn btn-lg btn-primary btn-block btn-ghost"><a href="{{ logbook.id }}">{{ logbook.name }}</a></div>
+            <div class="btn btn-lg btn-primary btn-block btn-ghost"><a href="{% url 'library:logbook' logbook.id %}">{{ logbook.name }}</a></div>
         </div>
         {% endfor %}
     </div>

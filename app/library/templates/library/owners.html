@@ -15,7 +15,7 @@
 {% block content %}
 
     {% if user.is_authenticated %}
-        <form action="add_owner" method="post">
+        <form action="{% url 'library:add_owner' logbook.id %}" method="post">
             <fieldset>
                 <legend>Add Owner</legend>
             {% csrf_token %}
@@ -35,7 +35,7 @@
             <legend>Owners</legend>
         {% for owner in owners %}
         <div class="form-group">
-            <a class="btn btn-error btn-ghost" href="remove/{{ owner }}">remove</a> {{ owner }}
+            <a class="btn btn-error btn-ghost" href="{% url 'library:remove_owner' logbook.id owner %}">remove</a> {{ owner }}
         </div>
         {% endfor %}
     </fieldset>
@@ -50,7 +50,7 @@
             <legend>Other Users</legend>
             {% for user in not_owners %}
             <div class="form-group">
-                <a class="btn btn-primary btn-ghost" href="add/{{ user }}">add</a> {{ user }}
+                <a class="btn btn-primary btn-ghost" href="{% url 'library:add_owner_direct' logbook.id user %}">add</a> {{ user }}
             </div>
             {% endfor %}
         </fieldset>

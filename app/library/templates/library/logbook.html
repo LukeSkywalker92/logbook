@@ -7,17 +7,16 @@
 {% endblock %}
 
 {% block logo %}
-<a href="owners" class="no-style">{{ logbook.name }}</a>
+<a href="{% url 'library:owners' logbook.id %}" class="no-style">{{ logbook.name }}</a>
 {% endblock %}
 
 
 {% block content %}
 
-<!-- <div class="title">{{ logbook.name }} (<a href="owners">Owners</a>)</div> -->
 
 {% if user.is_authenticated %}
 <div class='container'>
-    <form action="new_entry" method="post">
+    <form action="{% url 'library:new_entry' logbook.id %}" method="post">
         {% csrf_token %}
     {{ form }}
 </form>

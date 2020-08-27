@@ -15,13 +15,13 @@
     <fieldset>
         <legend>Navigation</legend>
         <div class="form-group">
-            <a class="btn btn-lg btn-primary btn-block btn-ghost" href="/library">Library</a>
+            <a class="btn btn-lg btn-primary btn-block btn-ghost" href="{% url 'library:index' %}">Library</a>
         </div>
         <div class="form-group">
-            <a class="btn btn-lg btn-primary btn-block btn-ghost" href="/accounts/profile">Profile</a>
+            <a class="btn btn-lg btn-primary btn-block btn-ghost" href="{% url 'accounts:profile' %}">Profile</a>
         </div>          
         <div class="form-group">
-            <a class="btn btn-lg btn-primary btn-block btn-ghost" href="/admin">Admin Area</a>
+            <a class="btn btn-lg btn-primary btn-block btn-ghost" href="{% url 'admin:index' %}">Admin Area</a>
         </div>            
     </fieldset>
 </div>

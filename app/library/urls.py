@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
 
+app_name = 'library'
+
 urlpatterns = [
-    path('', views.library, name='library'),
+    path('', views.library, name='index'),
     path('<int:logbook_id>/', views.logbook, name='logbook'),
     path('<int:logbook_id>/new_entry', views.new_entry, name='new_entry'),
     path('<int:logbook_id>/owners/', views.owners, name='owners'),
