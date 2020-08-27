@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from database.models import LogBook, LogBookEntry
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import EntryForm, NewLogBookForm, AddOwnerForm
@@ -45,14 +45,20 @@ class OwnersView(LoginRequiredMixin, TemplateView):
         context['form'] = AddOwnerForm()
         return context
 
-@login_required
-def new_entry(request, logbook_id):
-    book = get_object_or_404(LogBook, pk=logbook_id, owners__in=[request.user])
-    form = EntryForm(request.POST)
-    if form.is_valid():
-        entry = LogBookEntry(loogbook=book, author=request.user, text=form.cleaned_data['entry_text'])
-        entry.save()
-    return HttpResponseRedirect('/library/'+str(logbook_id))
+class NewLogbookEntryView(LoginRequiredMixin ,View):
+
+    def post(self, request, *args, **kwargs):
+        logbook = get_object_or_404(LogBook,
+                                 pk=self.kwargs['logbook_id'],
+                                 owners__in=[request.user])
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            entry = LogBookEntry(loogbook=logbook,
+                                 author=request.user,
+                                 text=form.cleaned_data['entry_text'])
+            entry.save()
+        return HttpResponseRedirect('/library/'+str(logbook.id))
+
 
 @login_required
 def new_logbook(request):

@@ -1,13 +1,13 @@
 from django.urls import path
 from . import views
-from library.views import LibraryView, LogBookView, OwnersView
+from library.views import LibraryView, LogBookView, OwnersView, NewLogbookEntryView
 
 app_name = 'library'
 
 urlpatterns = [
     path('', LibraryView.as_view(), name='index'),
     path('<int:logbook_id>/', LogBookView.as_view(), name='logbook'),
-    path('<int:logbook_id>/new_entry', views.new_entry, name='new_entry'),
+    path('<int:logbook_id>/new_entry', NewLogbookEntryView.as_view(), name='new_entry'),
     path('<int:logbook_id>/owners/', OwnersView.as_view(), name='owners'),
     path('new_logbook', views.new_logbook, name='new_logbook'),
     path('<int:logbook_id>/owners/remove/<str:username>', views.remove_owner, name='remove_owner'),
