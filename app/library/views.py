@@ -3,44 +3,47 @@ from django.shortcuts import render, get_object_or_404
 from database.models import LogBook, LogBookEntry
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import EntryForm, NewLogBookForm, AddOwnerForm
 
 # Create your views here.
 
-@login_required
-def library(request):
-    logbook_list = LogBook.objects.filter(owners__in=[request.user])
-    form = NewLogBookForm()
-    context = {
-        'logbook_list': logbook_list,
-        'form': form
-        }
-    return render(request, 'library/library.html', context)
+class LibraryView(LoginRequiredMixin, TemplateView):
+    template_name = 'library/library.html'
 
-@login_required
-def logbook(request, logbook_id):
-    book = get_object_or_404(LogBook, pk=logbook_id, owners__in=[request.user])
-    form = EntryForm()
-    context = {
-        'logbook': book,
-        'form':form
-        }
-    return render(request, 'library/logbook.html', context)
+    def get_context_data(self, *args, **kwargs):
+        context = super(LibraryView, self).get_context_data(*args, **kwargs)
+        context['logbook_list'] = LogBook.objects.filter(owners__in=[self.request.user])
+        context['form'] = NewLogBookForm()
+        return context
 
-@login_required
-def owners(request, logbook_id):
-    book = get_object_or_404(LogBook, pk=logbook_id, owners__in=[request.user])
-    owners = book.owners.all()
-    not_owners = User.objects.all().difference(owners)
-    form = AddOwnerForm()
-    context = {
-        'logbook': book,
-        'owners':owners,
-        'not_owners': not_owners,
-        'form':form
-        }
-    return render(request, 'library/owners.html', context)
+class LogBookView(LoginRequiredMixin, TemplateView):
+    template_name = 'library/logbook.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(LogBookView, self).get_context_data(*args, **kwargs)
+        context['logbook'] = get_object_or_404(LogBook,
+                                               pk=self.kwargs['logbook_id'],
+                                               owners__in=[self.request.user])
+        context['form'] = EntryForm()
+        return context
+
+class OwnersView(LoginRequiredMixin, TemplateView):
+    template_name = 'library/owners.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(OwnersView, self).get_context_data(*args, **kwargs)
+        logbook = get_object_or_404(LogBook,
+                                 pk=self.kwargs['logbook_id'],
+                                 owners__in=[self.request.user])
+        owners = logbook.owners.all()
+        context['logbook'] = logbook        
+        context['owners'] = owners
+        context['not_owners'] = User.objects.all().difference(owners)
+        context['form'] = AddOwnerForm()
+        return context
 
 @login_required
 def new_entry(request, logbook_id):
