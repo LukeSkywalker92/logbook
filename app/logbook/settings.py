@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'database.apps.DatabaseConfig',
     'library.apps.LibraryConfig',
     'home.apps.HomeConfig',
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,13 +80,6 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     "default": {
@@ -153,3 +147,7 @@ LOGOUT_REDIRECT_URL='/'
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra'
 ]
+
+DJANGO_SIMPLE_ACCOUNTS = {
+    'USER_PROFILE_PYTHON_PATH': 'database.models.UserProfile',
+}

@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 from database.models import LogBook, LogBookEntry
 from django.contrib.auth.models import User
@@ -57,42 +57,50 @@ class NewLogbookEntryView(LoginRequiredMixin ,View):
                                  author=request.user,
                                  text=form.cleaned_data['entry_text'])
             entry.save()
-        return HttpResponseRedirect('/library/'+str(logbook.id))
+            return HttpResponseRedirect('/library/'+str(logbook.id))
+        else:
+            return HttpResponseBadRequest()
 
+class NewLogbookView(LoginRequiredMixin ,View):
 
-@login_required
-def new_logbook(request):
-    form = NewLogBookForm(request.POST)
-    if form.is_valid():
-        logbook = LogBook(name=form.cleaned_data['name'])
-        logbook.save()
-        logbook.owners.add(request.user)
-        logbook.save()
-        return HttpResponseRedirect('/library/'+str(logbook.id))
+    def post(self, request, *args, **kwargs):
+        form = NewLogBookForm(self.request.POST)
+        if form.is_valid():
+            logbook = LogBook(name=form.cleaned_data['name'])
+            logbook.save()
+            logbook.owners.add(request.user)
+            logbook.save()
+            return HttpResponseRedirect('/library/'+str(logbook.id))
+        else:
+            return HttpResponseBadRequest()
 
-@login_required
-def remove_owner(request, logbook_id, username):
-    book = get_object_or_404(LogBook, pk=logbook_id, owners__in=[request.user])
-    user = get_object_or_404(User, username=username)
-    book.owners.remove(user)
-    book.save()
-    return HttpResponseRedirect('/library/'+str(book.id)+'/owners')
-    #return HttpResponse(status=200)
+class RemoveOwnerView(LoginRequiredMixin ,View):
 
-@login_required
-def add_owner(request, logbook_id):
-    form = AddOwnerForm(request.POST)
-    if form.is_valid():
-        book = get_object_or_404(LogBook, pk=logbook_id, owners__in=[request.user])
-        user = get_object_or_404(User, username=form.cleaned_data['username'])
-        book.owners.add(user)
+    def get(self, request, *args, **kwargs):
+        book = get_object_or_404(LogBook,
+                                 pk=self.kwargs["logbook_id"],
+                                 owners__in=[request.user])
+        user = get_object_or_404(User, username=self.kwargs["username"])
+        book.owners.remove(user)
         book.save()
         return HttpResponseRedirect('/library/'+str(book.id)+'/owners')
 
-@login_required
-def add_owner_direct(request, logbook_id, username):
-    book = get_object_or_404(LogBook, pk=logbook_id, owners__in=[request.user])
-    user = get_object_or_404(User, username=username)
-    book.owners.add(user)
-    book.save()
-    return HttpResponseRedirect('/library/'+str(book.id)+'/owners')
+class AddOwnerView(LoginRequiredMixin ,View):
+
+    def add_owner(self, request, logbook_id, username):
+        book = get_object_or_404(LogBook, pk=logbook_id, owners__in=[request.user])
+        user = get_object_or_404(User, username=username)
+        book.owners.add(user)
+        book.save()
+
+    def get(self, request, *args, **kwargs):
+        self.add_owner(request, self.kwargs["logbook_id"], self.kwargs["username"])
+        return HttpResponseRedirect('/library/'+str(self.kwargs["logbook_id"])+'/owners')
+
+    def post(self, request, *args, **kwargs):
+        form = AddOwnerForm(request.POST)
+        if form.is_valid():
+            self.add_owner(request, self.kwargs["logbook_id"], form.cleaned_data['username'])
+            return HttpResponseRedirect('/library/'+str(self.kwargs["logbook_id"])+'/owners')
+        else:
+            return HttpResponseBadRequest()

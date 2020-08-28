@@ -18,5 +18,4 @@ for (var p in path) {
     a.innerHTML = '/'+path[p];
     a.classList = 'menu-item';
     navLink.appendChild(a);
-    console.log(link);
 }

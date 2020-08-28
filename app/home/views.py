@@ -7,7 +7,3 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name= 'home/home.html'
-
-@login_required
-def home(request):
-    return render(request, 'home/home.html')
