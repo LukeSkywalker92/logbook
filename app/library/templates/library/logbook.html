@@ -7,11 +7,13 @@
 {% endblock %}
 
 {% block logo %}
-<a href="{% url 'library:owners' logbook.id %}" class="no-style">{{ logbook.name }}</a>
+<a href="{% url 'library:collaborators' logbook.id %}" class="no-style">{{ logbook.name }}</a>
 {% endblock %}
 
 
 {% block content %}
+
+{{ logbook.updated_on }}
 
 
 {% if user.is_authenticated %}

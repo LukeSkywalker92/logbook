@@ -8,10 +8,6 @@ from markdownx.utils import markdownify
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    phone = models.CharField(
-        max_length=12,
-        blank=True,
-    )
     darkmode = models.BooleanField(default=False)
 
     def __unicode__(self):
@@ -19,7 +15,10 @@ class UserProfile(models.Model):
 
 class LogBook(models.Model):
     name = models.CharField(max_length=200)
-    owners = models.ManyToManyField(User)
+    owner = models.ForeignKey(User, on_delete=models.PROTECT, related_name='owner')
+    collaborators = models.ManyToManyField(User, related_name='collaborators')
+    creation_date = models.DateTimeField('date created', auto_now=True)
+    updated_date = models.DateTimeField('date updated', auto_now=True)
 
     def __str__(self):
         return self.name

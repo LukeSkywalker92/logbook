@@ -7,5 +7,5 @@ class EntryForm(forms.Form):
 class NewLogBookForm(forms.Form):
     name = forms.CharField(max_length=200)
 
-class AddOwnerForm(forms.Form):
+class AddCollaboratorForm(forms.Form):
     username = forms.CharField(max_length=150)
